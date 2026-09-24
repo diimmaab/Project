@@ -9,6 +9,11 @@ public class UserService {
         this.database = database;
     }
     public GenderRatio computrGenderRatio(){
+
+        if (this.database == null ||  this.database.isEmpty()) {
+            return new GenderRatio(0.0, 0.0, 0.0);
+        }
+
         double boys = 0.0;
         double girls = 0.0;
         double unknown = 0.0;
@@ -22,6 +27,7 @@ public class UserService {
                 unknown++;
             }
         }
-        return new GenderRatio(boys,girls,unknown);
+        double sum = boys + girls + unknown;
+        return new GenderRatio(boys / sum,girls / sum,unknown/ sum);
     }
 }
